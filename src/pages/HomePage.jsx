@@ -265,25 +265,26 @@ const HomePage = () => {
                         <div className="space-y-8">
                             <div className="space-y-6">
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#1E1E1E] tracking-tight leading-tight">
-                                    Impulsamos negocios al{' '}
+                                    Llevá tu negocio al{' '}
                                     <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                                         mundo digital
-                                    </span>
+                                    </span>{' '}
+                                    de forma profesional
                                 </h1>
 
                                 <p className="text-xl text-[#6B7280] leading-relaxed max-w-xl">
-                                    Diseñamos sitios web estratégicos que convierten visitantes en clientes.
+                                    Desarrollo páginas web modernas y a medida para negocios y emprendedores que quieren empezar su presencia online y crecer sin limitaciones técnicas.
                                 </p>
                             </div>
 
                             {/* CTAs */}
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Link to="/planes" className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-center">
-                                    Ver Planes
+                                <Link to="/contacto" className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-center">
+                                    Hablemos de tu proyecto
                                 </Link>
 
-                                <Link to="/contacto" className="border-2 border-[#B11226] text-[#B11226] px-8 py-4 rounded-xl font-semibold hover:bg-[#B11226] hover:text-white transition-all duration-300 text-center">
-                                    Solicitar Consulta
+                                <Link to="/planes" className="border-2 border-[#B11226] text-[#B11226] px-8 py-4 rounded-xl font-semibold hover:bg-[#B11226] hover:text-white transition-all duration-300 text-center">
+                                    Ver planes y servicios
                                 </Link>
                             </div>
 
@@ -291,15 +292,15 @@ const HomePage = () => {
                             <div className="flex flex-wrap gap-8 pt-8 border-t border-[#E5E7EB]">
                                 <div className="flex items-center gap-2 text-[#6B7280]">
                                     <CheckCircle className="w-5 h-5 text-[#10B981]" />
-                                    <span>Hosting incluido</span>
+                                    <span>Acompañamiento personalizado</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-[#6B7280]">
                                     <CheckCircle className="w-5 h-5 text-[#10B981]" />
-                                    <span>Entrega garantizada</span>
+                                    <span>Desarrollo a medida</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-[#6B7280]">
                                     <CheckCircle className="w-5 h-5 text-[#10B981]" />
-                                    <span>Soporte 30 días</span>
+                                    <span>Web preparada para crecer</span>
                                 </div>
                             </div>
                         </div>
@@ -367,9 +368,9 @@ const HomePage = () => {
                     {/* Section Header */}
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight mb-4">
-                            ¿Por qué elegir{' '}
+                            ¿Por qué trabajar{' '}
                             <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
-                                VM Digital Studio?
+                                conmigo?
                             </span>
                         </h2>
                     </div>
