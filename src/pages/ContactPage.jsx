@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
     Send,
     Mail,
@@ -13,6 +14,7 @@ import {
     Clock,
     Zap
 } from 'lucide-react';
+import { PageContainer, PageSection, GlassCard } from '../components/ui/Layout';
 
 // ═══════════════════════════════════════════
 // MAIN COMPONENT
@@ -90,32 +92,53 @@ const ContactPage = () => {
             {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-gradient-to-br from-[#F8F9FA] via-white to-[#F8F9FA]">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold text-[#1E1E1E] tracking-tight mb-6">
+            <section className="relative overflow-hidden py-24 md:py-32">
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                    <div className="absolute -top-32 -left-20 w-[420px] h-[420px] bg-[#B11226]/10 rounded-full blur-[110px]" />
+                    <div className="absolute -bottom-28 -right-10 w-[420px] h-[420px] bg-[#8F0E1E]/10 rounded-full blur-[110px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-[#F3F4F6]" />
+                </div>
+                <PageContainer className="max-w-4xl text-center">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 32 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                        className="text-4xl md:text-6xl font-bold text-[#0F172A] tracking-tight mb-6"
+                    >
                         Hablemos de tu{' '}
                         <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                             próximo proyecto
                         </span>
-                    </h1>
+                    </motion.h1>
 
-                    <p className="text-xl text-[#6B7280] leading-relaxed">
+                    <motion.p
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.08 }}
+                        className="text-xl text-[#6B7280] leading-relaxed"
+                    >
                         Contanos tu idea y te ayudamos a transformarla en una solución digital profesional.
-                    </p>
-                </div>
+                    </motion.p>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════
           MAIN CONTACT SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PageSection className="bg-white">
+                <PageContainer>
 
                     <div className="grid lg:grid-cols-2 gap-12">
 
                         {/* LEFT COLUMN - CONTACT FORM */}
-                        <div className="bg-white rounded-2xl p-8 border-2 border-[#E5E7EB] shadow-lg">
-                            <h2 className="text-2xl font-bold text-[#1E1E1E] mb-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-120px' }}
+                            transition={{ duration: 0.6 }}
+                        >
+                        <GlassCard className="p-8 border border-[#E5E7EB]/80 shadow-lg">
+                            <h2 className="text-2xl font-bold text-[#0F172A] mb-6">
                                 Solicitar Consulta
                             </h2>
 
@@ -133,7 +156,7 @@ const ContactPage = () => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         className={`w-full px-4 py-3 rounded-xl border-2 ${errors.name ? 'border-red-500' : 'border-[#E5E7EB]'
-                                            } focus:border-[#B11226] focus:outline-none transition-colors duration-300`}
+                                            } focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white/70`}
                                         placeholder="Tu nombre"
                                     />
                                     {errors.name && (
@@ -153,7 +176,7 @@ const ContactPage = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         className={`w-full px-4 py-3 rounded-xl border-2 ${errors.email ? 'border-red-500' : 'border-[#E5E7EB]'
-                                            } focus:border-[#B11226] focus:outline-none transition-colors duration-300`}
+                                            } focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white/70`}
                                         placeholder="tu@email.com"
                                     />
                                     {errors.email && (
@@ -171,7 +194,7 @@ const ContactPage = () => {
                                         name="service"
                                         value={formData.service}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white/70"
                                     >
                                         <option value="">Selecciona un servicio</option>
                                         <option value="landing">Landing Page</option>
@@ -191,7 +214,7 @@ const ContactPage = () => {
                                         name="budget"
                                         value={formData.budget}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 bg-white/70"
                                     >
                                         <option value="">Selecciona un rango</option>
                                         <option value="250-500">USD 250 – 500</option>
@@ -211,7 +234,7 @@ const ContactPage = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows="4"
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 resize-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-[#E5E7EB] focus:border-[#B11226] focus:outline-none transition-colors duration-300 resize-none bg-white/70"
                                         placeholder="Contanos sobre tu proyecto..."
                                     />
                                 </div>
@@ -238,20 +261,29 @@ const ContactPage = () => {
                                 {/* Submit Button */}
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(185,18,38,0.45)] hover:shadow-[0_18px_45px_rgba(185,18,38,0.55)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
                                 >
                                     <Send className="w-5 h-5" />
                                     Solicitar Consulta
                                 </button>
 
                             </form>
-                        </div>
+                        </GlassCard>
+                        </motion.div>
 
                         {/* RIGHT COLUMN - BENEFITS & CONTACT INFO */}
                         <div className="space-y-8">
 
                             {/* Benefits Card */}
-                            <div className="bg-gradient-to-br from-[#F8F9FA] to-white rounded-2xl p-8 border border-[#E5E7EB] shadow-lg">
+                            <motion.div
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-120px' }}
+                                transition={{ duration: 0.6, delay: 0.05 }}
+                                className="group relative rounded-2xl overflow-hidden"
+                            >
+                                <div className="pointer-events-none absolute -inset-6 bg-gradient-to-br from-[#B11226]/8 via-transparent to-[#8F0E1E]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <GlassCard className="relative bg-gradient-to-br from-[#F8F9FA] to-white rounded-2xl p-8">
                                 <h3 className="text-2xl font-bold text-[#1E1E1E] mb-6">
                                     ¿Por qué trabajar con nosotros?
                                 </h3>
@@ -282,10 +314,17 @@ const ContactPage = () => {
                                         </span>
                                     </li>
                                 </ul>
-                            </div>
+                            </GlassCard>
+                            </motion.div>
 
                             {/* Contact Info Card */}
-                            <div className="bg-white rounded-2xl p-8 border-2 border-[#E5E7EB] shadow-lg">
+                            <motion.div
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-120px' }}
+                                transition={{ duration: 0.6, delay: 0.08 }}
+                            >
+                            <GlassCard className="p-8 border border-[#E5E7EB]/80 shadow-lg">
                                 <h3 className="text-xl font-bold text-[#1E1E1E] mb-6">
                                     Información de Contacto
                                 </h3>
@@ -302,7 +341,7 @@ const ContactPage = () => {
                                         href="https://wa.me/5491234567890"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 bg-[#10B981] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#059669] hover:scale-105 transition-all duration-300"
+                                        className="flex items-center justify-center gap-2 bg-[#10B981] text-white px-6 py-3 rounded-2xl font-semibold shadow-[0_18px_45px_rgba(16,185,129,0.35)] hover:bg-[#059669] hover:scale-[1.02] transition-all duration-300"
                                     >
                                         <MessageCircle className="w-5 h-5" />
                                         WhatsApp
@@ -314,28 +353,35 @@ const ContactPage = () => {
                                         <span>Argentina - Trabajo remoto</span>
                                     </div>
                                 </div>
-                            </div>
+                            </GlassCard>
+                            </motion.div>
 
                         </div>
 
                     </div>
-                </div>
-            </section>
+                </PageContainer>
+            </PageSection>
 
             {/* ═══════════════════════════════════════════
           TRUST SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-16 bg-[#F8F9FA]">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <PageSection className="bg-[#F8F9FA] py-16 md:py-20">
+                <PageContainer className="max-w-4xl text-center">
 
                     <div className="flex items-center justify-center gap-3 mb-4">
                         <Clock className="w-8 h-8 text-[#B11226]" />
-                        <h2 className="text-3xl font-bold text-[#1E1E1E]">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-120px' }}
+                            transition={{ duration: 0.6 }}
+                            className="text-3xl font-bold text-[#1E1E1E]"
+                        >
                             Respondemos en menos de{' '}
                             <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                                 24 horas
                             </span>
-                        </h2>
+                        </motion.h2>
                     </div>
 
                     <p className="text-lg text-[#6B7280] leading-relaxed max-w-2xl mx-auto">
@@ -357,14 +403,19 @@ const ContactPage = () => {
                         </div>
                     </div>
 
-                </div>
-            </section>
+                </PageContainer>
+            </PageSection>
 
             {/* ═══════════════════════════════════════════
           FINAL CTA SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-gradient-to-br from-[#1E1E1E] to-[#2D2D2D] text-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <section className="py-24 md:py-28 bg-gradient-to-br from-[#0F172A] via-[#020617] to-[#111827] text-white relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                    <div className="absolute -top-24 right-10 w-80 h-80 bg-[#B11226]/25 blur-3xl" />
+                    <div className="absolute -bottom-24 left-0 w-72 h-72 bg-[#0EA5E9]/25 blur-3xl" />
+                </div>
+
+                <PageContainer className="max-w-4xl text-center">
 
                     <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
                         Tu negocio merece una presencia{' '}
@@ -380,7 +431,7 @@ const ContactPage = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <Link
                             to="/planes"
-                            className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                            className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
                         >
                             <Zap className="w-5 h-5" />
                             Ver Planes
@@ -390,14 +441,14 @@ const ContactPage = () => {
                             href="https://wa.me/5491234567890"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-[#10B981] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                            className="bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
                         >
                             <MessageCircle className="w-5 h-5" />
                             WhatsApp
                         </a>
                     </div>
 
-                </div>
+                </PageContainer>
             </section>
 
         </div>

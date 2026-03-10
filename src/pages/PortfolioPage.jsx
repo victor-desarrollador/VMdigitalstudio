@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     Monitor,
     TrendingUp,
@@ -15,6 +16,7 @@ import {
     Globe,
     ShoppingCart
 } from 'lucide-react';
+import { PageContainer, GlassCard } from '../components/ui/Layout';
 
 // ═══════════════════════════════════════════
 // DATA STRUCTURES
@@ -104,10 +106,10 @@ const FilterButton = ({ category, isActive, onClick }) => {
         <button
             onClick={onClick}
             className={`
-        px-6 py-3 rounded-xl font-semibold transition-all duration-300
+        px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 backdrop-blur-md
         ${isActive
-                    ? 'bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white shadow-lg'
-                    : 'bg-white text-[#6B7280] border-2 border-[#E5E7EB] hover:border-[#B11226] hover:text-[#B11226]'
+                    ? 'bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white shadow-[0_16px_40px_rgba(185,18,38,0.35)]'
+                    : 'bg-white/80 text-[#6B7280] border border-[#E5E7EB] hover:border-[#B11226]/70 hover:text-[#B11226] shadow-sm'
                 }
       `}
         >
@@ -118,13 +120,17 @@ const FilterButton = ({ category, isActive, onClick }) => {
 
 const ProjectCard = ({ project, onViewCase }) => {
     return (
-        <div className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-[#E5E7EB]">
+        <motion.div
+            whileHover={{ y: -8 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            className="group relative rounded-2xl overflow-hidden"
+        >
 
             {/* Project Image Mockup */}
             <div className="relative bg-gradient-to-br from-[#F8F9FA] to-[#E5E7EB] p-8 overflow-hidden">
                 {/* MacBook style mockup */}
-                <div className="relative bg-[#1E1E1E] rounded-lg p-8 shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
-                    <div className={`h-48 bg-gradient-to-br ${project.color} rounded-md flex items-center justify-center`}>
+                <div className="relative bg-[#0F172A] rounded-2xl p-6 shadow-2xl transform group-hover:scale-105 transition-transform duration-400">
+                    <div className={`h-44 bg-gradient-to-br ${project.color} rounded-xl flex items-center justify-center`}>
                         {project.category === 'Landing Page' && <Globe className="w-16 h-16 text-white/30" />}
                         {project.category === 'Sitio Profesional' && <Monitor className="w-16 h-16 text-white/30" />}
                         {project.category === 'Ecommerce' && <ShoppingCart className="w-16 h-16 text-white/30" />}
@@ -133,14 +139,14 @@ const ProjectCard = ({ project, onViewCase }) => {
 
                 {/* Category Badge */}
                 <div className="absolute top-4 right-4">
-                    <span className={`bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg`}>
+                    <span className={`bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg shadow-[#111827]/40`}>
                         {project.category}
                     </span>
                 </div>
             </div>
 
             {/* Project Details */}
-            <div className="p-8">
+            <GlassCard className="mt-0 rounded-t-none border-t-0 p-8">
                 {/* Client */}
                 <p className="text-sm text-[#6B7280] mb-2">
                     {project.client}
@@ -172,13 +178,13 @@ const ProjectCard = ({ project, onViewCase }) => {
                 {/* CTA Button */}
                 <button
                     onClick={() => onViewCase(project)}
-                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white py-3 px-6 rounded-2xl font-semibold shadow-[0_16px_40px_rgba(185,18,38,0.35)] hover:shadow-[0_18px_45px_rgba(185,18,38,0.5)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
                 >
                     Ver Caso
                     <ArrowRight className="w-5 h-5" />
                 </button>
-            </div>
-        </div>
+            </GlassCard>
+        </motion.div>
     );
 };
 
@@ -192,18 +198,18 @@ const CaseModal = ({ project, onClose }) => {
 
     return (
         <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 bg-black/70 backdrop-blur-2xl z-50 flex items-center justify-center p-4 sm:p-6"
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] shadow-2xl animate-in fade-in zoom-in-95 duration-300 flex flex-col overflow-hidden"
+                className="bg-white/95 backdrop-blur-xl rounded-2xl w-full max-w-4xl max-h-[90vh] shadow-2xl animate-in fade-in zoom-in-95 duration-300 flex flex-col overflow-hidden border border-[#E5E7EB]/80"
                 onClick={handleContentClick}
             >
 
                 {/* Sticky Header */}
-                <div className="flex-shrink-0 relative px-6 py-5 border-b border-[#E5E7EB] bg-white flex items-center justify-between z-10">
+                <div className="flex-shrink-0 relative px-6 py-5 border-b border-[#E5E7EB] bg-white/95 backdrop-blur flex items-center justify-between z-10">
                     <div className="flex flex-col">
-                        <span className={`inline-flex items-center w-fit bg-gradient-to-r ${project.color} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm mb-1`}>
+                        <span className={`inline-flex items-center w-fit bg-gradient-to-r ${project.color} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md mb-1`}>
                             {project.category}
                         </span>
                         <h2 className="text-xl md:text-2xl font-bold text-[#1E1E1E]">
@@ -224,8 +230,8 @@ const CaseModal = ({ project, onClose }) => {
                 <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 custom-scrollbar">
 
                     {/* Mockup Image */}
-                    <div className="relative bg-gradient-to-br from-[#F8F9FA] to-[#E5E7EB] p-8 rounded-xl border border-[#E5E7EB]/50">
-                        <div className={`bg-gradient-to-br ${project.color} aspect-video max-h-80 w-full rounded-lg shadow-2xl flex items-center justify-center transform hover:scale-[1.02] transition-transform duration-500`}>
+                    <div className="relative bg-gradient-to-br from-[#F8F9FA] to-[#E5E7EB] p-8 rounded-2xl border border-[#E5E7EB]/70 shadow-lg">
+                        <div className={`bg-gradient-to-br ${project.color} aspect-video max-h-80 w-full rounded-2xl shadow-2xl flex items-center justify-center transform hover:scale-[1.02] transition-transform duration-500`}>
                             {project.category === 'Landing Page' && <Globe className="w-20 h-20 text-white/40" />}
                             {project.category === 'Sitio Profesional' && <Monitor className="w-20 h-20 text-white/40" />}
                             {project.category === 'Ecommerce' && <ShoppingCart className="w-20 h-20 text-white/40" />}
@@ -257,7 +263,7 @@ const CaseModal = ({ project, onClose }) => {
                     </div>
 
                     {/* Results */}
-                    <div className="bg-[#F8F9FA] rounded-xl p-6 border border-[#E5E7EB]">
+                    <div className="bg-[#F8F9FA] rounded-2xl p-6 border border-[#E5E7EB]">
                         <h3 className="text-lg font-bold text-[#1E1E1E] mb-4">
                             Resultados Clave
                         </h3>
@@ -290,11 +296,11 @@ const CaseModal = ({ project, onClose }) => {
                 </div>
 
                 {/* Sticky Footer CTA */}
-                <div className="flex-shrink-0 p-6 border-t border-[#E5E7EB] bg-white md:flex items-center justify-between gap-4">
+                <div className="flex-shrink-0 p-6 border-t border-[#E5E7EB] bg-white/95 backdrop-blur md:flex items-center justify-between gap-4">
                     <div className="hidden md:block text-sm text-[#6B7280]">
                         ¿Te interesa un proyecto similar?
                     </div>
-                    <button className="w-full md:w-auto bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white py-3 px-8 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+                    <button className="w-full md:w-auto bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white py-3 px-8 rounded-2xl font-semibold shadow-[0_14px_35px_rgba(185,18,38,0.4)] hover:shadow-[0_18px_45px_rgba(185,18,38,0.55)] hover:-translate-y-0.5 transition-all duration-300">
                         Quiero algo similar
                     </button>
                 </div>
@@ -323,10 +329,20 @@ const PortfolioPage = () => {
             {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 md:py-28 bg-gradient-to-br from-[#F8F9FA] via-white to-[#F8F9FA]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-4xl mx-auto">
-                        <h1 className="text-4xl md:text-6xl font-bold text-[#1E1E1E] tracking-tight mb-6">
+            <section className="relative overflow-hidden py-24 md:py-32">
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                    <div className="absolute -top-32 -left-16 w-[420px] h-[420px] bg-[#B11226]/10 rounded-full blur-[110px]" />
+                    <div className="absolute -bottom-28 -right-8 w-[420px] h-[420px] bg-[#8F0E1E]/10 rounded-full blur-[110px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-[#F3F4F6]" />
+                </div>
+                <PageContainer>
+                    <motion.div
+                        initial={{ opacity: 0, y: 32 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                        className="text-center max-w-4xl mx-auto"
+                    >
+                        <h1 className="text-4xl md:text-6xl font-bold text-[#0F172A] tracking-tight mb-6">
                             Proyectos que generan{' '}
                             <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                                 resultados reales
@@ -336,15 +352,15 @@ const PortfolioPage = () => {
                         <p className="text-xl text-[#6B7280] leading-relaxed">
                             Cada proyecto está diseñado estratégicamente para convertir visitantes en clientes.
                         </p>
-                    </div>
-                </div>
+                    </motion.div>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════
           FILTER SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-12 bg-white sticky top-0 z-40 border-b border-[#E5E7EB] backdrop-blur-sm bg-white/95">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-6 bg-white sticky top-16 z-40 border-b border-[#E5E7EB]/80 backdrop-blur-xl bg-white/90">
+                <PageContainer>
                     <div className="flex flex-wrap justify-center gap-4">
                         {categories.map((category) => (
                             <FilterButton
@@ -357,30 +373,47 @@ const PortfolioPage = () => {
                     </div>
 
                     {/* Active count */}
-                    <div className="text-center mt-6">
+                    <div className="text-center mt-4">
                         <p className="text-sm text-[#6B7280]">
                             Mostrando <span className="font-semibold text-[#B11226]">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'proyecto' : 'proyectos'}
                         </p>
                     </div>
-                </div>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════
           PROJECT GRID SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-24 md:py-32 bg-white">
+                <PageContainer>
 
                     {/* Projects Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: '-80px' }}
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                transition: { staggerChildren: 0.08, duration: 0.5 }
+                            }
+                        }}
+                        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    >
                         {filteredProjects.map((project) => (
-                            <ProjectCard
+                            <motion.div
                                 key={project.id}
-                                project={project}
-                                onViewCase={setSelectedProject}
-                            />
+                                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            >
+                                <ProjectCard
+                                    project={project}
+                                    onViewCase={setSelectedProject}
+                                />
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Empty state */}
                     {filteredProjects.length === 0 && (
@@ -397,74 +430,121 @@ const PortfolioPage = () => {
                         </div>
                     )}
 
-                </div>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════
           STATS SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-[#F8F9FA]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-24 md:py-32 bg-[#F8F9FA]">
+                <PageContainer>
 
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-[#1E1E1E] tracking-tight mb-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-120px' }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center mb-16"
+                    >
+                        <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] tracking-tight mb-4">
                             Impacto en números
                         </h2>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid md:grid-cols-4 gap-8">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: '-80px' }}
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                transition: { staggerChildren: 0.08, duration: 0.5 }
+                            }
+                        }}
+                        className="grid md:grid-cols-4 gap-8"
+                    >
                         {[
                             { value: '45+', label: 'Proyectos completados' },
                             { value: '38%', label: 'Incremento promedio en conversión' },
                             { value: '100%', label: 'Clientes satisfechos' },
                             { value: '<3s', label: 'Tiempo de carga promedio' }
                         ].map((stat, index) => (
-                            <div key={index} className="text-center bg-white rounded-2xl p-8 shadow-lg">
-                                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent mb-2">
-                                    {stat.value}
-                                </div>
-                                <div className="text-[#6B7280]">
-                                    {stat.label}
-                                </div>
-                            </div>
+                            <motion.div
+                                key={index}
+                                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            >
+                                <GlassCard className="text-center p-8">
+                                    <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent mb-2">
+                                        {stat.value}
+                                    </div>
+                                    <div className="text-[#6B7280]">
+                                        {stat.label}
+                                    </div>
+                                </GlassCard>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
-                </div>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════
           FINAL CTA SECTION
       ═══════════════════════════════════════════ */}
-            <section className="py-20 bg-gradient-to-br from-[#1E1E1E] to-[#2D2D2D] text-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <section className="py-24 md:py-28 bg-gradient-to-br from-[#0F172A] via-[#020617] to-[#111827] text-white relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                    <div className="absolute -top-24 right-10 w-80 h-80 bg-[#B11226]/25 blur-3xl" />
+                    <div className="absolute -bottom-24 left-0 w-72 h-72 bg-[#0EA5E9]/25 blur-3xl" />
+                </div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                <PageContainer className="max-w-4xl text-center">
+
+                    <motion.h2
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-100px' }}
+                        transition={{ duration: 0.6 }}
+                        className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-6"
+                    >
                         Tu proyecto puede ser el próximo{' '}
                         <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                             caso de éxito
                         </span>
-                    </h2>
+                    </motion.h2>
 
-                    <p className="text-xl text-gray-300 mb-10">
+                    <motion.p
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.6, delay: 0.05 }}
+                        className="text-xl text-gray-300 mb-10"
+                    >
                         Construyamos algo que genere resultados reales.
-                    </p>
+                    </motion.p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                    >
                         {/* Primary CTA */}
-                        <button className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                        <button className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2">
                             <Calendar className="w-5 h-5" />
                             Solicitar Consulta
                         </button>
 
                         {/* WhatsApp CTA */}
-                        <button className="bg-[#10B981] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                        <button className="bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2">
                             <MessageCircle className="w-5 h-5" />
                             WhatsApp
                         </button>
-                    </div>
+                    </motion.div>
 
-                </div>
+                </PageContainer>
             </section>
 
             {/* ═══════════════════════════════════════════

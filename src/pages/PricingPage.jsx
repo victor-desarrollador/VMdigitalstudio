@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Check, X, ChevronDown, MessageCircle, Calendar } from 'lucide-react';
+import { PageContainer, GlassCard } from '../components/ui/Layout';
 
 // ═══════════════════════════════════════════
 // DATA STRUCTURES
@@ -217,53 +219,80 @@ const PricingCard = ({ plan }) => {
   };
 
   return (
-    <div
-      className={`
-        relative bg-white rounded-2xl p-8 shadow-lg
-        transition-all duration-300 ease-in-out
-        hover:-translate-y-2 hover:shadow-2xl
-        ${highlighted ? 'scale-105 ring-2 ring-[#B11226] ring-offset-4' : ''}
-      `}
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+      className={`relative rounded-2xl ${highlighted ? 'lg:scale-105' : ''}`}
     >
       {/* Badge for highlighted plan */}
       {badge && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-4 py-1 rounded-full text-sm font-semibold shadow-md">
+          <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-4 py-1 rounded-full text-xs font-semibold shadow-[0_12px_30px_rgba(185,18,38,0.6)] tracking-[0.16em] uppercase">
             {badge}
           </span>
         </div>
       )}
 
-      {/* Plan Header */}
-      <div className="text-center mb-6">
-        <h3 className="text-sm font-bold tracking-wider text-[#6B7280] mb-2">
-          {name}
-        </h3>
-        <div className="mb-3">
-          <span className="text-5xl font-bold text-[#1E1E1E] tracking-tight">
-            {price}
-          </span>
+      <GlassCard
+        className={`h-full p-8 sm:p-9 transition-all duration-500 ${
+          highlighted
+            ? 'bg-gradient-to-b from-[#111827] via-[#020617] to-[#111827] text-white border-[#1f2937] shadow-[0_26px_70px_rgba(15,23,42,0.85)]'
+            : 'bg-white/85'
+        }`}
+      >
+        {/* Plan Header */}
+        <div className={`text-center mb-8 ${highlighted ? 'text-white' : ''}`}>
+          <h3
+            className={`text-xs font-semibold tracking-[0.22em] mb-4 uppercase ${
+              highlighted ? 'text-[#F97316]' : 'text-[#6B7280]'
+            }`}
+          >
+            {name}
+          </h3>
+          <div className="mb-3">
+            <span
+              className={`text-5xl font-bold tracking-tight ${
+                highlighted ? 'text-white' : 'text-[#0F172A]'
+              }`}
+            >
+              {price}
+            </span>
+          </div>
+          <p
+            className={`text-sm leading-relaxed ${
+              highlighted ? 'text-gray-300' : 'text-[#6B7280]'
+            }`}
+          >
+            {description}
+          </p>
         </div>
-        <p className="text-[#6B7280] text-sm leading-relaxed">
-          {description}
-        </p>
-      </div>
 
-      {/* Features List */}
-      <ul className="space-y-3 mb-8">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-[#10B981] flex-shrink-0 mt-0.5" />
-            <span className="text-[#1E1E1E] text-sm">{feature}</span>
-          </li>
-        ))}
-      </ul>
+        {/* Features List */}
+        <ul className="space-y-3 mb-8">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <Check
+                className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                  highlighted ? 'text-[#22C55E]' : 'text-[#10B981]'
+                }`}
+              />
+              <span
+                className={`text-sm ${
+                  highlighted ? 'text-gray-100' : 'text-[#111827]'
+                }`}
+              >
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
 
-      {/* CTA Button */}
-      <Link to="/contacto" className={`${getButtonClasses()} block text-center`}>
-        {cta}
-      </Link>
-    </div>
+        {/* CTA Button */}
+        <Link to="/contacto" className={`${getButtonClasses()} block text-center`}>
+          {cta}
+        </Link>
+      </GlassCard>
+    </motion.div>
   );
 };
 
@@ -358,10 +387,20 @@ const PricingPage = () => {
       {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-[#F8F9FA] via-white to-[#F8F9FA] py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#1E1E1E] tracking-tight mb-6">
+      <section className="relative overflow-hidden py-24 md:py-32">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-32 -left-16 w-[420px] h-[420px] bg-[#B11226]/10 rounded-full blur-[110px]" />
+          <div className="absolute -bottom-28 -right-8 w-[420px] h-[420px] bg-[#8F0E1E]/10 rounded-full blur-[110px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-[#F3F4F6]" />
+        </div>
+        <PageContainer>
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold text-[#0F172A] tracking-tight mb-6">
               Precios Transparentes,{' '}
               <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
                 Resultados Reales
@@ -370,60 +409,90 @@ const PricingPage = () => {
             <p className="text-xl text-[#6B7280] leading-relaxed">
               Soluciones digitales profesionales con hosting y dominio incluidos por 1 año.
             </p>
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
           <div className="flex justify-center mt-12">
             <ChevronDown className="w-8 h-8 text-[#B11226] animate-bounce" />
           </div>
-        </div>
+        </PageContainer>
       </section>
 
       {/* ═══════════════════════════════════════════
           PRICING CARDS SECTION
       ═══════════════════════════════════════════ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 md:py-32 bg-white">
+        <PageContainer>
 
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Nuestros Planes
             </h2>
             <p className="text-lg text-[#6B7280]">
               Elegí la solución ideal para tu negocio
             </p>
-          </div>
+          </motion.div>
 
           {/* Pricing Cards Grid */}
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { staggerChildren: 0.1, duration: 0.5 }
+              }
+            }}
+            className="grid md:grid-cols-3 gap-8 lg:gap-10"
+          >
             {pricingPlans.map((plan) => (
-              <PricingCard key={plan.id} plan={plan} />
+              <motion.div
+                key={plan.id}
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              >
+                <PricingCard plan={plan} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-        </div>
+        </PageContainer>
       </section>
 
       {/* ═══════════════════════════════════════════
           COMPARISON TABLE SECTION
       ═══════════════════════════════════════════ */}
-      <section className="py-20 bg-[#F8F9FA]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 md:py-32 bg-[#F8F9FA]">
+        <PageContainer>
 
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1E1E1E] tracking-tight mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Comparación Detallada
             </h2>
             <p className="text-lg text-[#6B7280]">
               Descubrí qué incluye cada plan
             </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <GlassCard className="bg-white rounded-2xl shadow-lg overflow-hidden p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-[#1E1E1E] text-white sticky top-0">
+                <thead className="bg-[#0F172A] text-white sticky top-0">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">
                       Característica
@@ -446,24 +515,30 @@ const PricingPage = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </GlassCard>
 
-        </div>
+        </PageContainer>
       </section>
 
       {/* ═══════════════════════════════════════════
           FAQ SECTION
       ═══════════════════════════════════════════ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 md:py-32 bg-white">
+        <PageContainer className="max-w-4xl">
 
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1E1E1E] tracking-tight mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Preguntas Frecuentes
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#E5E7EB]">
+          <GlassCard className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#E5E7EB]">
             {faqs.map((faq, index) => (
               <FAQItem
                 key={index}
@@ -472,40 +547,71 @@ const PricingPage = () => {
                 onToggle={() => toggleFAQ(index)}
               />
             ))}
-          </div>
+          </GlassCard>
 
-        </div>
+        </PageContainer>
       </section>
 
       {/* ═══════════════════════════════════════════
           FINAL CTA SECTION
       ═══════════════════════════════════════════ */}
-      <section className="py-20 bg-gradient-to-br from-[#1E1E1E] to-[#2D2D2D] text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-24 md:py-28 bg-gradient-to-br from-[#0F172A] via-[#020617] to-[#111827] text-white relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-24 right-10 w-80 h-80 bg-[#B11226]/25 blur-3xl" />
+          <div className="absolute -bottom-24 left-0 w-72 h-72 bg-[#0EA5E9]/25 blur-3xl" />
+        </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+        <PageContainer className="max-w-4xl text-center">
+
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-semibold tracking-tight mb-6"
+          >
             ¿Listo para impulsar tu negocio?
-          </h2>
+          </motion.h2>
 
-          <p className="text-xl text-gray-300 mb-10">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="text-xl text-gray-300 mb-10"
+          >
             Agendá una consulta gratuita y empecemos hoy.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
             {/* Primary CTA */}
-            <Link to="/contacto" className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+            <Link
+              to="/contacto"
+              className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            >
               <Calendar className="w-5 h-5" />
               Solicitar Consulta Gratuita
             </Link>
 
             {/* WhatsApp CTA */}
-            <a href="https://wa.me/5493815000000" target="_blank" rel="noopener noreferrer" className="bg-[#10B981] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+            <a
+              href="https://wa.me/5493815000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            >
               <MessageCircle className="w-5 h-5" />
               WhatsApp
             </a>
-          </div>
+          </motion.div>
 
-        </div>
+        </PageContainer>
       </section>
 
     </div>
