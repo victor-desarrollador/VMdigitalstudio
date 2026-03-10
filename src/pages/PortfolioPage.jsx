@@ -121,24 +121,35 @@ const FilterButton = ({ category, isActive, onClick }) => {
 const ProjectCard = ({ project, onViewCase }) => {
     return (
         <motion.div
-            whileHover={{ y: -8 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="group relative rounded-2xl overflow-hidden"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.6 }}
+            className="group relative rounded-2xl overflow-hidden bg-white/80 backdrop-blur-xl border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300"
         >
 
             {/* Project Image Mockup */}
-            <div className="relative bg-gradient-to-br from-[#F8F9FA] to-[#E5E7EB] p-8 overflow-hidden">
+            <div className="relative bg-gradient-to-br from-[#F8F9FA] to-[#E5E7EB] p-8 overflow-hidden flex justify-center items-center">
+                {/* Overlay suave on hover */}
+                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none" />
+
                 {/* MacBook style mockup */}
-                <div className="relative bg-[#0F172A] rounded-2xl p-6 shadow-2xl transform group-hover:scale-105 transition-transform duration-400">
-                    <div className={`h-44 bg-gradient-to-br ${project.color} rounded-xl flex items-center justify-center`}>
-                        {project.category === 'Landing Page' && <Globe className="w-16 h-16 text-white/30" />}
-                        {project.category === 'Sitio Profesional' && <Monitor className="w-16 h-16 text-white/30" />}
-                        {project.category === 'Ecommerce' && <ShoppingCart className="w-16 h-16 text-white/30" />}
+                <div className="relative bg-[#0F172A] rounded-t-xl rounded-b-md p-2 shadow-2xl transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 w-full max-w-[280px]">
+                    {/* Mockup Screen */}
+                    <div className={`h-40 bg-gradient-to-br ${project.color} rounded-sm flex items-center justify-center relative overflow-hidden`}>
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {project.category === 'Landing Page' && <Globe className="w-12 h-12 text-white/30" />}
+                        {project.category === 'Sitio Profesional' && <Monitor className="w-12 h-12 text-white/30" />}
+                        {project.category === 'Ecommerce' && <ShoppingCart className="w-12 h-12 text-white/30" />}
+                    </div>
+                    {/* Mockup Base */}
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-2 w-[120%] bg-gray-300 rounded-b-xl shadow-md flex justify-center">
+                        <div className="w-16 h-1 bg-gray-400 rounded-b-md" />
                     </div>
                 </div>
 
                 {/* Category Badge */}
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-4 right-4 z-20">
                     <span className={`bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg shadow-[#111827]/40`}>
                         {project.category}
                     </span>
@@ -146,7 +157,7 @@ const ProjectCard = ({ project, onViewCase }) => {
             </div>
 
             {/* Project Details */}
-            <GlassCard className="mt-0 rounded-t-none border-t-0 p-8">
+            <div className="p-8 border-t border-gray-100">
                 {/* Client */}
                 <p className="text-sm text-[#6B7280] mb-2">
                     {project.client}
@@ -178,12 +189,12 @@ const ProjectCard = ({ project, onViewCase }) => {
                 {/* CTA Button */}
                 <button
                     onClick={() => onViewCase(project)}
-                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white py-3 px-6 rounded-2xl font-semibold shadow-[0_16px_40px_rgba(185,18,38,0.35)] hover:shadow-[0_18px_45px_rgba(185,18,38,0.5)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-2xl font-semibold shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
                 >
                     Ver Caso
                     <ArrowRight className="w-5 h-5" />
                 </button>
-            </GlassCard>
+            </div>
         </motion.div>
     );
 };
@@ -508,9 +519,9 @@ const PortfolioPage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-6"
                     >
-                        Tu proyecto puede ser el próximo{' '}
-                        <span className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] bg-clip-text text-transparent">
-                            caso de éxito
+                        ¿Listo para tener una web que{' '}
+                        <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                            realmente genere clientes?
                         </span>
                     </motion.h2>
 
@@ -519,9 +530,9 @@ const PortfolioPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.6, delay: 0.05 }}
-                        className="text-xl text-gray-300 mb-10"
+                        className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed"
                     >
-                        Construyamos algo que genere resultados reales.
+                        Transformá tus visitantes en clientes con un diseño enfocado en la conversión.
                     </motion.p>
 
                     <motion.div
@@ -529,19 +540,30 @@ const PortfolioPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                        className="flex flex-col sm:flex-row gap-6 justify-center items-center"
                     >
                         {/* Primary CTA */}
-                        <button className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2">
-                            <Calendar className="w-5 h-5" />
-                            Solicitar Consulta
-                        </button>
+                        <motion.div className="w-full sm:w-auto">
+                            <button
+                                className="w-full inline-flex justify-center items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300"
+                            >
+                                <Calendar className="w-5 h-5 mr-3" />
+                                Solicitar mi página web profesional
+                            </button>
+                        </motion.div>
 
                         {/* WhatsApp CTA */}
-                        <button className="bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2">
-                            <MessageCircle className="w-5 h-5" />
-                            WhatsApp
-                        </button>
+                        <motion.div className="w-full sm:w-auto">
+                            <a
+                                href="https://wa.me/5493815000000"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
+                            >
+                                <MessageCircle className="w-5 h-5 mr-3" />
+                                Contactar por WhatsApp
+                            </a>
+                        </motion.div>
                     </motion.div>
 
                 </PageContainer>

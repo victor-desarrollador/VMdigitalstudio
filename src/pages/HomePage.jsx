@@ -74,7 +74,7 @@ const whyChooseUs = [
 const processSteps = [
     {
         number: '01',
-        title: 'Análisis',
+        title: 'Estrategia',
         description: 'Entendemos tu negocio, objetivos y audiencia para diseñar la estrategia ideal.',
         icon: Search
     },
@@ -131,15 +131,16 @@ const ServiceCard = ({ service }) => {
 
     return (
         <motion.div
-            whileHover={{ y: -4, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.6 }}
             className="group relative rounded-2xl overflow-hidden"
         >
             {/* Glow / blur de fondo */}
-            <div className="pointer-events-none absolute -inset-6 bg-gradient-to-br from-[#B11226]/6 via-transparent to-[#8F0E1E]/8 opacity-0 blur-3xl group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="pointer-events-none absolute -inset-6 bg-gradient-to-br from-[#B11226]/6 via-transparent to-[#8F0E1E]/8 opacity-0 blur-[100px] group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-[#E5E7EB]/80 group-hover:shadow-2xl group-hover:border-[#B11226]/30 transition-all duration-300">
+            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-200 group-hover:shadow-2xl transition-all duration-300">
                 {/* Icon with gradient background */}
                 <div className={`relative w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 shadow-lg shadow-[#000]/20 group-hover:shadow-[#B11226]/40 group-hover:scale-110 transition-transform duration-300`}>
                     <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -177,15 +178,16 @@ const ValueCard = ({ item }) => {
 
     return (
         <motion.div
-            whileHover={{ y: -4, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.6 }}
             className="group relative text-center md:text-left rounded-2xl overflow-hidden"
         >
             {/* Glow de fondo */}
             <div className="pointer-events-none absolute -inset-5 bg-gradient-to-br from-[#B11226]/8 via-transparent to-[#8F0E1E]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-7 shadow-lg border border-[#E5E7EB]/80 group-hover:shadow-2xl group-hover:border-[#B11226]/25 transition-all duration-300">
+            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-7 shadow-xl border border-gray-200 group-hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-[#B11226] to-[#8F0E1E] mb-4 shadow-lg shadow-[#B11226]/25 group-hover:shadow-[#B11226]/40 group-hover:scale-110 transition-transform duration-300">
                     <IconComponent className="w-7 h-7 text-white" />
@@ -210,9 +212,11 @@ const ProcessStep = ({ step, index, isLast }) => {
 
     return (
         <motion.div
-            whileHover={{ y: -4 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="relative flex flex-col items-center text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.6 }}
+            className="relative flex flex-col items-center text-center group"
         >
             {/* Connector line (desktop only) */}
             {!isLast && (
@@ -245,9 +249,11 @@ const ProcessStep = ({ step, index, isLast }) => {
 const TestimonialCard = ({ testimonial }) => {
     return (
         <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="relative bg-white/90 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-[#E5E7EB]/80 hover:shadow-2xl hover:border-[#B11226]/20 transition-all duration-300 overflow-hidden"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.6 }}
+            className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 overflow-hidden"
         >
             <div className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 bg-gradient-to-br from-[#B11226]/10 to-[#8F0E1E]/20 blur-3xl" />
             {/* Stars */}
@@ -315,11 +321,11 @@ const HomePage = () => {
       ═══════════════════════════════════════════ */}
             <section className="relative min-h-screen flex items-center overflow-hidden">
                 {/* Gradient mesh + grid background */}
-                <div className="pointer-events-none absolute inset-0 -z-10">
-                    <div className="absolute -top-40 -left-32 w-[520px] h-[520px] bg-[#B11226]/12 rounded-full blur-[130px]" />
-                    <div className="absolute -bottom-32 -right-10 w-[520px] h-[520px] bg-[#8F0E1E]/12 rounded-full blur-[130px]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#ffffff_0,_#f9fafb_45%,_#e5e7eb_100%)] opacity-90" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb33_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb26_1px,transparent_1px)] bg-[size:72px_72px] mix-blend-soft-light opacity-60" />
+                <div className="pointer-events-none absolute inset-0 -z-10 bg-[#FAFAFA] overflow-hidden">
+                    <div className="absolute top-0 md:-top-40 left-0 md:-left-32 w-[500px] h-[500px] bg-red-500/30 rounded-full blur-[140px] mix-blend-multiply" />
+                    <div className="absolute bottom-0 md:-bottom-32 right-0 md:-right-10 w-[600px] h-[600px] bg-rose-400/20 rounded-full blur-[140px] mix-blend-multiply" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/10 rounded-full blur-[140px] mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb44_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb44_1px,transparent_1px)] bg-[size:72px_72px] mix-blend-soft-light opacity-60" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-32 w-full">
@@ -352,6 +358,25 @@ const HomePage = () => {
                                 </h1>
                             </motion.div>
 
+                            {/* Trust Metrics / Social Proof Badges */}
+                            <motion.div 
+                                variants={heroItem}
+                                className="flex flex-wrap items-center gap-4 py-2"
+                            >
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm">
+                                    <TrendingUp className="w-4 h-4 text-red-600" />
+                                    <span className="text-sm font-semibold text-gray-800">+20 proyectos realizados</span>
+                                </div>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm">
+                                    <Globe className="w-4 h-4 text-red-600" />
+                                    <span className="text-sm font-semibold text-gray-800">Clientes en 3 países</span>
+                                </div>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm">
+                                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                    <span className="text-sm font-semibold text-gray-800">98% satisfacción</span>
+                                </div>
+                            </motion.div>
+
                             <motion.p
                                 variants={heroItem}
                                 className="text-lg md:text-xl text-[#4B5563] leading-relaxed max-w-xl"
@@ -371,10 +396,10 @@ const HomePage = () => {
                                 >
                                     <Link
                                         to="/contacto"
-                                        className="group w-full inline-flex items-center justify-center bg-gradient-to-r from-[#B11226] via-[#DC2626] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold shadow-[0_22px_55px_rgba(185,18,38,0.45)] transition-all duration-300"
+                                        className="group w-full inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300"
                                     >
-                                        <span className="mr-1">Hablemos de tu proyecto</span>
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        <span className="mr-2">Hablemos de tu proyecto</span>
+                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 </motion.div>
 
@@ -729,9 +754,9 @@ const HomePage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-6"
                     >
-                        Tu negocio merece una presencia{' '}
-                        <span className="bg-gradient-to-r from-[#B11226] via-[#F97316] to-[#8F0E1E] bg-clip-text text-transparent">
-                            digital profesional
+                        ¿Listo para tener una web que{' '}
+                        <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                            realmente genere clientes?
                         </span>
                     </motion.h2>
 
@@ -742,7 +767,7 @@ const HomePage = () => {
                         transition={{ duration: 0.6, delay: 0.05 }}
                         className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed"
                     >
-                        Empecemos hoy mismo.
+                        Transformá tus visitantes en clientes con un diseño enfocado en la conversión.
                     </motion.p>
 
                     <motion.div
@@ -750,29 +775,29 @@ const HomePage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                        className="flex flex-col sm:flex-row gap-6 justify-center items-center"
                     >
                         {/* Primary CTA */}
-                        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+                        <motion.div className="w-full sm:w-auto">
                             <Link
                                 to="/contacto"
-                                className="w-full inline-flex justify-center items-center bg-gradient-to-r from-[#B11226] via-[#DC2626] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] transition-all duration-300"
+                                className="w-full inline-flex justify-center items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300"
                             >
-                                <Calendar className="w-5 h-5 mr-2" />
-                                Solicitar Consulta Gratuita
+                                <Calendar className="w-5 h-5 mr-3" />
+                                Solicitar mi página web profesional
                             </Link>
                         </motion.div>
 
                         {/* WhatsApp CTA */}
-                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+                        <motion.div className="w-full sm:w-auto">
                             <a
                                 href="https://wa.me/5493815000000"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full inline-flex justify-center items-center bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] transition-all duration-300"
+                                className="w-full inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
                             >
-                                <MessageCircle className="w-5 h-5 mr-2" />
-                                WhatsApp
+                                <MessageCircle className="w-5 h-5 mr-3" />
+                                Contactar por WhatsApp
                             </a>
                         </motion.div>
                     </motion.div>

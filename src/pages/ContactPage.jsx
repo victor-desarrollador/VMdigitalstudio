@@ -261,7 +261,7 @@ const ContactPage = () => {
                                 {/* Submit Button */}
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(185,18,38,0.45)] hover:shadow-[0_18px_45px_rgba(185,18,38,0.55)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
                                 >
                                     <Send className="w-5 h-5" />
                                     Solicitar Consulta
@@ -341,7 +341,7 @@ const ContactPage = () => {
                                         href="https://wa.me/5491234567890"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 bg-[#10B981] text-white px-6 py-3 rounded-2xl font-semibold shadow-[0_18px_45px_rgba(16,185,129,0.35)] hover:bg-[#059669] hover:scale-[1.02] transition-all duration-300"
+                                        className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-2xl font-semibold shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
                                     >
                                         <MessageCircle className="w-5 h-5" />
                                         WhatsApp
@@ -431,7 +431,7 @@ const ContactPage = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <Link
                             to="/planes"
-                            className="bg-gradient-to-r from-[#B11226] to-[#8F0E1E] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_22px_55px_rgba(248,113,113,0.45)] hover:shadow-[0_18px_45px_rgba(248,113,113,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
                         >
                             <Zap className="w-5 h-5" />
                             Ver Planes
@@ -441,7 +441,7 @@ const ContactPage = () => {
                             href="https://wa.me/5491234567890"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-[#10B981] text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_18px_45px_rgba(16,185,129,0.4)] hover:shadow-[0_16px_40px_rgba(16,185,129,0.55)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                            className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
                         >
                             <MessageCircle className="w-5 h-5" />
                             WhatsApp
