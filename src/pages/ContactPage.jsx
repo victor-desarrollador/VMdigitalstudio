@@ -338,7 +338,7 @@ const ContactPage = () => {
 
                                     {/* WhatsApp Button */}
                                     <a
-                                        href="https://wa.me/5491234567890"
+                                        href="https://wa.me/5493813475776"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-2xl font-semibold shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
@@ -438,7 +438,7 @@ const ContactPage = () => {
                         </Link>
 
                         <a
-                            href="https://wa.me/5491234567890"
+                            href="https://wa.me/5493813475776"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
