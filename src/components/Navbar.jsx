@@ -44,18 +44,18 @@ const Navbar = () => {
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-18">
+                    <div className="flex justify-between items-center min-h-[96px]">
 
                         {/* LEFT - Logo */}
                         <Link
                             to="/"
-                            className="flex items-center py-3 group"
+                            className="flex items-center py-4 group"
                             aria-label="VM Digital Studio - Inicio"
                         >
                             <img
                                 src={logoNavbar}
                                 alt="VM Digital Studio"
-                                className="h-16 w-auto max-w-[220px] object-contain group-hover:opacity-80 transition-opacity duration-300"
+                                className="h-28 w-auto max-w-[340px] object-contain group-hover:opacity-80 transition-opacity duration-300"
                             />
                         </Link>
 
@@ -140,7 +140,7 @@ const Navbar = () => {
                             <img
                                 src={logoNavbar}
                                 alt="VM Digital Studio"
-                                className="h-9 w-auto object-contain"
+                                className="h-18 w-auto object-contain"
                             />
                         </Link>
 

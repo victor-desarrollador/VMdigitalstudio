@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
-import logoSecondary from '../image/logo secuntario.jpeg';
+import { Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
+import logoSecondary from '../image/logo secundario.jpeg';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -15,12 +15,12 @@ const Footer = () => {
         { path: '/contacto', label: 'Contacto' },
     ];
 
-    // Services list
+    // Services list - Enfoque Corporativo y Premium
     const services = [
-        'Landing Pages',
-        'Sitios Web Profesionales',
-        'Ecommerce',
-        'Consultoría Digital',
+        'Desarrollo Web Full-Stack',
+        'Sistemas y Software a Medida',
+        'Automatización de Procesos',
+        'Optimización SEO y Rendimiento',
     ];
 
     return (
@@ -46,7 +46,7 @@ const Footer = () => {
                             <div className="w-16 h-0.5 bg-gradient-to-r from-[#B11226] to-[#8F0E1E]" />
 
                             <p className="text-gray-400 text-sm leading-relaxed">
-                                Estudio digital especializado en diseño y desarrollo web estratégico orientado a resultados.
+                                Estudio de ingeniería de software especializado en el desarrollo de plataformas web de alta velocidad y automatización inteligente para empresas.
                             </p>
                         </div>
 
@@ -77,9 +77,12 @@ const Footer = () => {
                             <ul className="space-y-3">
                                 {services.map((service, index) => (
                                     <li key={index}>
-                                        <span className="text-gray-400 text-sm">
+                                        <Link 
+                                            to="/planes" 
+                                            className="text-gray-400 hover:text-[#B11226] transition-colors duration-300 text-sm"
+                                        >
                                             {service}
-                                        </span>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -97,7 +100,7 @@ const Footer = () => {
                                         className="flex items-center gap-3 text-gray-400 hover:text-[#B11226] transition-colors duration-300 text-sm group"
                                     >
                                         <Mail className="w-5 h-5 flex-shrink-0 text-[#B11226] group-hover:scale-110 transition-transform duration-300" />
-                                        <span>contacto@vmdigitalstudio.com</span>
+                                        <span className="truncate">contacto@vmdigitalstudio.com</span>
                                     </a>
                                 </li>
 
@@ -109,13 +112,13 @@ const Footer = () => {
                                         className="flex items-center gap-3 text-gray-400 hover:text-[#B11226] transition-colors duration-300 text-sm group"
                                     >
                                         <Phone className="w-5 h-5 flex-shrink-0 text-[#B11226] group-hover:scale-110 transition-transform duration-300" />
-                                        <span>WhatsApp</span>
+                                        <span>WhatsApp Corporativo</span>
                                     </a>
                                 </li>
 
                                 <li className="flex items-center gap-3 text-gray-400 text-sm">
                                     <MapPin className="w-5 h-5 flex-shrink-0 text-[#B11226]" />
-                                    <span>Argentina - Trabajo remoto</span>
+                                    <span>Argentina · Soluciones Globales</span>
                                 </li>
                             </ul>
                         </div>
@@ -127,37 +130,44 @@ const Footer = () => {
                 <div className="border-t border-white/10 py-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
 
-                        {/* Left - Copyright */}
-                        <p className="text-gray-400 text-sm text-center md:text-left">
-                            © {currentYear} VM Digital Studio. Todos los derechos reservados.
-                        </p>
+                        {/* Left - Copyright & Legal */}
+                        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                            <p className="text-gray-400 text-sm">
+                                © {currentYear} VM Digital Studio. Todos los derechos reservados.
+                            </p>
+                            <span className="hidden sm:inline text-white/20">|</span>
+                            <div className="flex gap-4 text-xs text-gray-500">
+                                <Link to="/privacidad" className="hover:text-[#B11226] transition-colors">Privacidad</Link>
+                                <Link to="/terminos" className="hover:text-[#B11226] transition-colors">Términos</Link>
+                            </div>
+                        </div>
 
                         {/* Right - Tagline & Social */}
                         <div className="flex flex-col md:flex-row items-center gap-4">
                             <p className="text-gray-500 text-xs text-center md:text-right">
-                                Desarrollado con tecnología moderna y enfoque estratégico.
+                                Desarrollado con tecnología moderna y arquitectura escalable.
                             </p>
 
                             {/* Social Icons */}
                             <div className="flex items-center gap-3">
                                 <a
-                                    href="https://linkedin.com"
+                                    href="https://facebook.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-[#B11226] text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
-                                    aria-label="LinkedIn"
+                                    aria-label="Facebook"
                                 >
-                                    <Linkedin className="w-4 h-4" />
+                                    <Facebook className="w-4 h-4" />
                                 </a>
 
                                 <a
-                                    href="https://github.com"
+                                    href="https://instagram.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-[#B11226] text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
-                                    aria-label="GitHub"
+                                    aria-label="Instagram"
                                 >
-                                    <Github className="w-4 h-4" />
+                                    <Instagram className="w-4 h-4" />
                                 </a>
                             </div>
                         </div>
