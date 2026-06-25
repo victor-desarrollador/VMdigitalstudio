@@ -608,7 +608,7 @@ const PricingPage = () => {
             {/* WhatsApp CTA */}
             <motion.div className="w-full sm:w-auto">
               <a
-                href="https://wa.me/5493815000000"
+                href="https://wa.me/5493813475776"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
