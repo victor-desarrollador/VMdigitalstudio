@@ -66,25 +66,34 @@ const ContactPage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            // Form is valid - here you would send data to backend
-            console.log('Form submitted:', formData);
-            alert('¡Gracias! Tu consulta ha sido enviada. Te contactaremos pronto.');
-
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                service: '',
-                budget: '',
-                message: '',
-                acceptContact: false
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+        try {
+            const response = await fetch('http://100.65.131.87:5678/webhook/lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
             });
+
+            if (response.ok) {
+                alert('¡Gracias! Tu consulta ha sido enviada. Te contactaremos pronto.');
+                setFormData({
+                    name: '',
+                    email: '',
+                    service: '',
+                    budget: '',
+                    message: '',
+                    acceptContact: false
+                });
+            } else {
+                alert('Hubo un error al enviar. Intentá de nuevo.');
+            }
+        } catch (error) {
+            alert('Hubo un error al enviar. Intentá de nuevo.');
         }
-    };
+    }
+};
 
     return (
         <div className="min-h-screen bg-white">
