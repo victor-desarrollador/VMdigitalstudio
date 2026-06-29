@@ -100,7 +100,7 @@ const Footer = () => {
                                         className="flex items-center gap-3 text-gray-400 hover:text-[#B11226] transition-colors duration-300 text-sm group"
                                     >
                                         <Mail className="w-5 h-5 flex-shrink-0 text-[#B11226] group-hover:scale-110 transition-transform duration-300" />
-                                        <span className="truncate">contacto@vmdigitalstudio.com</span>
+                                        <span className="truncate">contacto@vm-digital-studio.com</span>
                                     </a>
                                 </li>
 
