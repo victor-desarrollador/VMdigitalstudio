@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, X, ChevronDown, MessageCircle, Calendar } from 'lucide-react';
+import { Check, X, ChevronDown, MessageCircle, Calendar, Shield, RefreshCw } from 'lucide-react';
 import { PageContainer, GlassCard } from '../components/ui/Layout';
 
 // ═══════════════════════════════════════════
@@ -12,7 +12,7 @@ const pricingPlans = [
   {
     id: 'start',
     name: 'START',
-    price: '$250',
+    price: 'USD 300',
     description: 'Ideal para emprendedores que necesitan presencia online rápida.',
     features: [
       'Landing Page',
@@ -31,7 +31,7 @@ const pricingPlans = [
   {
     id: 'pro',
     name: 'PRO',
-    price: '$450',
+    price: 'USD 650',
     badge: 'Más Elegido',
     description: 'Ideal para empresas que buscan presencia profesional sólida.',
     features: [
@@ -51,7 +51,7 @@ const pricingPlans = [
   {
     id: 'ecommerce',
     name: 'ECOMMERCE',
-    price: '$1200',
+    price: 'USD 1.200',
     description: 'Ideal para marcas que desean vender online de forma escalable.',
     features: [
       'Tienda online completa',
@@ -69,6 +69,41 @@ const pricingPlans = [
     cta: 'Quiero vender online',
     highlighted: false,
     buttonStyle: 'solid'
+  }
+];
+
+const maintenancePlans = [
+  {
+    id: 'maint-basic',
+    name: 'Básico',
+    price: 'USD 30',
+    period: '/mes',
+    description: 'Mantenimiento esencial para sitios activos.',
+    features: [
+      'Actualizaciones mensuales',
+      'Backups mensuales',
+      'Monitoreo de uptime',
+      'SSL renovado',
+      'Soporte por email'
+    ],
+    highlighted: false
+  },
+  {
+    id: 'maint-pro',
+    name: 'Pro',
+    price: 'USD 60',
+    period: '/mes',
+    description: 'Soporte prioritario y mayor frecuencia de backups.',
+    features: [
+      'Actualizaciones semanales',
+      'Backups diarios',
+      'Monitoreo de uptime 24/7',
+      'SSL renovado',
+      'Soporte por WhatsApp',
+      'Hasta 2 cambios de contenido/mes',
+      'Reporte mensual de estado'
+    ],
+    highlighted: true
   }
 ];
 
@@ -166,7 +201,7 @@ const faqs = [
   },
   {
     question: '¿Cuánto tarda el desarrollo?',
-    answer: 'Plan START: 7-10 días hábiles. Plan PRO: 15-20 días hábiles. Plan ECOMMERCE: 30-45 días hábiles. Los tiempos pueden variar según la complejidad de requisitos específicos y la disponibilidad de contenidos.'
+    answer: 'Plan START: 5-7 días hábiles. Plan PRO: 7-10 días hábiles. Plan ECOMMERCE: 15+ días hábiles. Los tiempos pueden variar según la complejidad de requisitos específicos y la disponibilidad de contenidos.'
   },
   {
     question: '¿Puedo cambiar de plan?',
@@ -178,11 +213,11 @@ const faqs = [
   },
   {
     question: '¿Ofrecen soporte?',
-    answer: 'Sí. Todos los planes incluyen 30 días de soporte post-lanzamiento sin cargo. Después podés contratar paquetes de mantenimiento mensual o soporte puntual según necesites.'
+    answer: 'Sí. Todos los planes incluyen 7 días de soporte post-lanzamiento sin cargo. Después podés contratar uno de nuestros planes de mantenimiento mensual según tus necesidades.'
   },
   {
     question: '¿Aceptan pagos en cuotas?',
-    answer: 'Sí, aceptamos tarjetas de crédito con financiación en cuotas, transferencias bancarias y pagos mediante Mercado Pago. Consultanos por opciones de pago flexibles.'
+    answer: 'Sí. Trabajamos con un esquema de 50% de anticipo al inicio y 50% contra entrega. Aceptamos transferencias bancarias y Mercado Pago. Consultanos por opciones de pago flexibles.'
   }
 ];
 
@@ -191,29 +226,12 @@ const faqs = [
 // ═══════════════════════════════════════════
 
 const PricingCard = ({ plan }) => {
-  const {
-    name,
-    price,
-    badge,
-    description,
-    features,
-    cta,
-    highlighted,
-    buttonStyle
-  } = plan;
+  const { name, price, badge, description, features, cta, highlighted, buttonStyle } = plan;
 
   const getButtonClasses = () => {
     const base = 'w-full py-3 px-6 rounded-2xl font-semibold transition-all duration-300 ease-in-out block text-center';
-
-    if (buttonStyle === 'gradient') {
-      return `${base} bg-gradient-to-r from-red-600 to-red-700 text-white shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105`;
-    }
-
-    if (buttonStyle === 'solid') {
-      return `${base} bg-red-600 text-white hover:bg-red-700 shadow-[0_10px_40px_rgba(185,28,28,0.25)] hover:scale-105`;
-    }
-
-    // outline
+    if (buttonStyle === 'gradient') return `${base} bg-gradient-to-r from-red-600 to-red-700 text-white shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105`;
+    if (buttonStyle === 'solid') return `${base} bg-red-600 text-white hover:bg-red-700 shadow-[0_10px_40px_rgba(185,28,28,0.25)] hover:scale-105`;
     return `${base} border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white hover:scale-105 hover:shadow-[0_10px_40px_rgba(185,28,28,0.25)]`;
   };
 
@@ -225,7 +243,6 @@ const PricingCard = ({ plan }) => {
       transition={{ duration: 0.6 }}
       className={`group relative rounded-2xl ${highlighted ? 'lg:scale-105' : ''}`}
     >
-      {/* Badge for highlighted plan */}
       {badge && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
           <span className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-1 rounded-full text-xs font-semibold shadow-[0_10px_30px_rgba(185,28,28,0.4)] tracking-[0.16em] uppercase">
@@ -233,64 +250,90 @@ const PricingCard = ({ plan }) => {
           </span>
         </div>
       )}
-
-      <div
-        className={`h-full p-8 sm:p-9 transition-all duration-500 rounded-2xl border backdrop-blur-xl ${
-          highlighted
-            ? 'bg-gradient-to-b from-[#111827] via-[#020617] to-[#111827] text-white border-gray-800 shadow-[0_26px_70px_rgba(15,23,42,0.85)]'
-            : 'bg-white/80 border-gray-200 shadow-xl group-hover:shadow-2xl'
-        }`}
-      >
-        {/* Plan Header */}
+      <div className={`h-full p-8 sm:p-9 transition-all duration-500 rounded-2xl border backdrop-blur-xl ${
+        highlighted
+          ? 'bg-gradient-to-b from-[#111827] via-[#020617] to-[#111827] text-white border-gray-800 shadow-[0_26px_70px_rgba(15,23,42,0.85)]'
+          : 'bg-white/80 border-gray-200 shadow-xl group-hover:shadow-2xl'
+      }`}>
         <div className={`text-center mb-8 ${highlighted ? 'text-white' : ''}`}>
-          <h3
-            className={`text-xs font-semibold tracking-[0.22em] mb-4 uppercase ${
-              highlighted ? 'text-[#F97316]' : 'text-[#6B7280]'
-            }`}
-          >
+          <h3 className={`text-xs font-semibold tracking-[0.22em] mb-4 uppercase ${highlighted ? 'text-[#F97316]' : 'text-[#6B7280]'}`}>
             {name}
           </h3>
           <div className="mb-3">
-            <span
-              className={`text-5xl font-bold tracking-tight ${
-                highlighted ? 'text-white' : 'text-[#0F172A]'
-              }`}
-            >
+            <span className={`text-4xl font-bold tracking-tight ${highlighted ? 'text-white' : 'text-[#0F172A]'}`}>
               {price}
             </span>
           </div>
-          <p
-            className={`text-sm leading-relaxed ${
-              highlighted ? 'text-gray-300' : 'text-[#6B7280]'
-            }`}
-          >
+          <p className={`text-sm leading-relaxed ${highlighted ? 'text-gray-300' : 'text-[#6B7280]'}`}>
             {description}
           </p>
         </div>
-
-        {/* Features List */}
         <ul className="space-y-3 mb-8">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3">
-              <Check
-                className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                  highlighted ? 'text-[#22C55E]' : 'text-[#10B981]'
-                }`}
-              />
-              <span
-                className={`text-sm ${
-                  highlighted ? 'text-gray-100' : 'text-[#111827]'
-                }`}
-              >
-                {feature}
-              </span>
+              <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${highlighted ? 'text-[#22C55E]' : 'text-[#10B981]'}`} />
+              <span className={`text-sm ${highlighted ? 'text-gray-100' : 'text-[#111827]'}`}>{feature}</span>
             </li>
           ))}
         </ul>
+        <Link to="/contacto" className={getButtonClasses()}>{cta}</Link>
+      </div>
+    </motion.div>
+  );
+};
 
-        {/* CTA Button */}
-        <Link to="/contacto" className={getButtonClasses()}>
-          {cta}
+const MaintenanceCard = ({ plan }) => {
+  const { name, price, period, description, features, highlighted } = plan;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.5 }}
+      className="group relative rounded-2xl"
+    >
+      <div className={`h-full p-8 rounded-2xl border transition-all duration-500 ${
+        highlighted
+          ? 'bg-gradient-to-b from-[#111827] via-[#020617] to-[#111827] text-white border-gray-800 shadow-[0_26px_70px_rgba(15,23,42,0.85)]'
+          : 'bg-white border-gray-200 shadow-xl group-hover:shadow-2xl'
+      }`}>
+        {highlighted && (
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-1 rounded-full text-xs font-semibold tracking-[0.16em] uppercase shadow-lg">
+              Recomendado
+            </span>
+          </div>
+        )}
+        <div className="text-center mb-6">
+          <h3 className={`text-xs font-semibold tracking-[0.22em] mb-3 uppercase ${highlighted ? 'text-[#F97316]' : 'text-[#6B7280]'}`}>
+            Mantenimiento {name}
+          </h3>
+          <div className="flex items-end justify-center gap-1 mb-2">
+            <span className={`text-4xl font-bold tracking-tight ${highlighted ? 'text-white' : 'text-[#0F172A]'}`}>
+              {price}
+            </span>
+            <span className={`text-sm mb-2 ${highlighted ? 'text-gray-400' : 'text-[#6B7280]'}`}>{period}</span>
+          </div>
+          <p className={`text-sm ${highlighted ? 'text-gray-300' : 'text-[#6B7280]'}`}>{description}</p>
+        </div>
+        <ul className="space-y-3 mb-8">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${highlighted ? 'text-[#22C55E]' : 'text-[#10B981]'}`} />
+              <span className={`text-sm ${highlighted ? 'text-gray-100' : 'text-[#111827]'}`}>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        <Link
+          to="/contacto"
+          className={`w-full py-3 px-6 rounded-2xl font-semibold transition-all duration-300 block text-center ${
+            highlighted
+              ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105'
+              : 'border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white hover:scale-105'
+          }`}
+        >
+          Contratar mantenimiento
         </Link>
       </div>
     </motion.div>
@@ -298,78 +341,35 @@ const PricingCard = ({ plan }) => {
 };
 
 const FeatureCell = ({ value }) => {
-  if (value === true) {
-    return (
-      <div className="flex justify-center">
-        <Check className="w-5 h-5 text-[#10B981]" />
-      </div>
-    );
-  }
+  if (value === true) return <div className="flex justify-center"><Check className="w-5 h-5 text-[#10B981]" /></div>;
+  if (value === false) return <div className="flex justify-center"><X className="w-5 h-5 text-[#E5E7EB]" /></div>;
+  return <div className="text-center text-sm text-[#1E1E1E]">{value}</div>;
+};
 
-  if (value === false) {
-    return (
-      <div className="flex justify-center">
-        <X className="w-5 h-5 text-[#E5E7EB]" />
-      </div>
-    );
-  }
+const FeatureRow = ({ feature, index }) => (
+  <tr className={`${index % 2 === 0 ? 'bg-white' : 'bg-[#F8F9FA]'} hover:bg-gray-50 transition-colors duration-200`}>
+    <td className="px-6 py-4 text-sm font-medium text-[#1E1E1E]">{feature.name}</td>
+    <td className="px-6 py-4"><FeatureCell value={feature.start} /></td>
+    <td className="px-6 py-4 bg-red-50/30"><FeatureCell value={feature.pro} /></td>
+    <td className="px-6 py-4"><FeatureCell value={feature.ecommerce} /></td>
+  </tr>
+);
 
-  return (
-    <div className="text-center text-sm text-[#1E1E1E]">
-      {value}
+const FAQItem = ({ faq, isOpen, onToggle }) => (
+  <div className="border-b border-[#E5E7EB] last:border-b-0">
+    <button
+      onClick={onToggle}
+      className="w-full py-5 px-6 flex justify-between items-center text-left hover:bg-[#F8F9FA] transition-colors duration-200"
+      aria-expanded={isOpen}
+    >
+      <span className="font-semibold text-[#1E1E1E] pr-4">{faq.question}</span>
+      <ChevronDown className={`w-5 h-5 text-[#B11226] flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+    </button>
+    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className="px-6 pb-5 text-[#6B7280] leading-relaxed">{faq.answer}</div>
     </div>
-  );
-};
-
-const FeatureRow = ({ feature, index }) => {
-  return (
-    <tr className={`${index % 2 === 0 ? 'bg-white' : 'bg-[#F8F9FA]'} hover:bg-gray-50 transition-colors duration-200`}>
-      <td className="px-6 py-4 text-sm font-medium text-[#1E1E1E]">
-        {feature.name}
-      </td>
-      <td className="px-6 py-4">
-        <FeatureCell value={feature.start} />
-      </td>
-      <td className="px-6 py-4 bg-red-50/30">
-        <FeatureCell value={feature.pro} />
-      </td>
-      <td className="px-6 py-4">
-        <FeatureCell value={feature.ecommerce} />
-      </td>
-    </tr>
-  );
-};
-
-const FAQItem = ({ faq, isOpen, onToggle }) => {
-  return (
-    <div className="border-b border-[#E5E7EB] last:border-b-0">
-      <button
-        onClick={onToggle}
-        className="w-full py-5 px-6 flex justify-between items-center text-left hover:bg-[#F8F9FA] transition-colors duration-200"
-        aria-expanded={isOpen}
-      >
-        <span className="font-semibold text-[#1E1E1E] pr-4">
-          {faq.question}
-        </span>
-        <ChevronDown
-          className={`w-5 h-5 text-[#B11226] flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
-            }`}
-        />
-      </button>
-
-      <div
-        className={`
-          overflow-hidden transition-all duration-300 ease-in-out
-          ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-        `}
-      >
-        <div className="px-6 pb-5 text-[#6B7280] leading-relaxed">
-          {faq.answer}
-        </div>
-      </div>
-    </div>
-  );
-};
+  </div>
+);
 
 // ═══════════════════════════════════════════
 // MAIN COMPONENT
@@ -377,17 +377,12 @@ const FAQItem = ({ faq, isOpen, onToggle }) => {
 
 const PricingPage = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
-
-  const toggleFAQ = (index) => {
-    setOpenFAQ(openFAQ === index ? null : index);
-  };
+  const toggleFAQ = (index) => setOpenFAQ(openFAQ === index ? null : index);
 
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ═══════════════════════════════════════════
-          HERO SECTION
-      ═══════════════════════════════════════════ */}
+      {/* HERO */}
       <section className="relative overflow-hidden py-24 md:py-32">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-32 -left-16 w-[420px] h-[420px] bg-[#B11226]/10 rounded-full blur-[110px]" />
@@ -411,21 +406,15 @@ const PricingPage = () => {
               Soluciones digitales profesionales con hosting y dominio incluidos por 1 año.
             </p>
           </motion.div>
-
-          {/* Scroll Indicator */}
           <div className="flex justify-center mt-12">
             <ChevronDown className="w-8 h-8 text-[#B11226] animate-bounce" />
           </div>
         </PageContainer>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          PRICING CARDS SECTION
-      ═══════════════════════════════════════════ */}
+      {/* PRICING CARDS */}
       <section className="py-24 md:py-32 bg-white">
         <PageContainer>
-
-          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -436,45 +425,83 @@ const PricingPage = () => {
             <h2 className="text-3xl md:text-5xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Nuestros Planes
             </h2>
-            <p className="text-lg text-[#6B7280]">
-              Elegí la solución ideal para tu negocio
-            </p>
+            <p className="text-lg text-[#6B7280]">Elegí la solución ideal para tu negocio</p>
           </motion.div>
 
-          {/* Pricing Cards Grid */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { staggerChildren: 0.1, duration: 0.5 }
-              }
+              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1, duration: 0.5 } }
             }}
             className="grid md:grid-cols-3 gap-8 lg:gap-10"
           >
             {pricingPlans.map((plan) => (
-              <motion.div
-                key={plan.id}
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              >
+              <motion.div key={plan.id} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
                 <PricingCard plan={plan} />
               </motion.div>
             ))}
           </motion.div>
 
+          {/* Payment note */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center text-sm text-[#6B7280] mt-8"
+          >
+            50% de anticipo al inicio · 50% contra entrega · Precios en USD
+          </motion.p>
         </PageContainer>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          COMPARISON TABLE SECTION
-      ═══════════════════════════════════════════ */}
+      {/* MANTENIMIENTO */}
       <section className="py-24 md:py-32 bg-[#F8F9FA]">
         <PageContainer>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <RefreshCw className="w-7 h-7 text-[#B11226]" />
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] tracking-tight">
+                Mantenimiento Mensual
+              </h2>
+            </div>
+            <p className="text-lg text-[#6B7280] max-w-2xl mx-auto">
+              Mantené tu sitio seguro, actualizado y funcionando al 100% sin preocuparte por nada técnico.
+            </p>
+          </motion.div>
 
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {maintenancePlans.map((plan) => (
+              <MaintenanceCard key={plan.id} plan={plan} />
+            ))}
+          </div>
+
+          {/* Included in all plans note */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-10 flex items-center justify-center gap-2 text-sm text-[#6B7280]"
+          >
+            <Shield className="w-4 h-4 text-[#10B981]" />
+            <span>Todos los planes incluyen 7 días de soporte post-lanzamiento sin cargo</span>
+          </motion.div>
+        </PageContainer>
+      </section>
+
+      {/* COMPARISON TABLE */}
+      <section className="py-24 md:py-32 bg-white">
+        <PageContainer>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -485,9 +512,7 @@ const PricingPage = () => {
             <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Comparación Detallada
             </h2>
-            <p className="text-lg text-[#6B7280]">
-              Descubrí qué incluye cada plan
-            </p>
+            <p className="text-lg text-[#6B7280]">Descubrí qué incluye cada plan</p>
           </motion.div>
 
           <GlassCard className="bg-white rounded-2xl shadow-lg overflow-hidden p-0">
@@ -495,18 +520,10 @@ const PricingPage = () => {
               <table className="w-full">
                 <thead className="bg-[#0F172A] text-white sticky top-0">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">
-                      Característica
-                    </th>
-                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">
-                      START
-                    </th>
-                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider bg-[#B11226]">
-                      PRO
-                    </th>
-                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">
-                      ECOMMERCE
-                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Característica</th>
+                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">START</th>
+                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider bg-[#B11226]">PRO</th>
+                    <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">ECOMMERCE</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -517,16 +534,12 @@ const PricingPage = () => {
               </table>
             </div>
           </GlassCard>
-
         </PageContainer>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          FAQ SECTION
-      ═══════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-white">
+      {/* FAQ */}
+      <section className="py-24 md:py-32 bg-[#F8F9FA]">
         <PageContainer className="max-w-4xl">
-
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -541,42 +554,31 @@ const PricingPage = () => {
 
           <GlassCard className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#E5E7EB]">
             {faqs.map((faq, index) => (
-              <FAQItem
-                key={index}
-                faq={faq}
-                isOpen={openFAQ === index}
-                onToggle={() => toggleFAQ(index)}
-              />
+              <FAQItem key={index} faq={faq} isOpen={openFAQ === index} onToggle={() => toggleFAQ(index)} />
             ))}
           </GlassCard>
-
         </PageContainer>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          FINAL CTA SECTION
-      ═══════════════════════════════════════════ */}
+      {/* FINAL CTA */}
       <section className="py-24 md:py-28 bg-gradient-to-br from-[#0F172A] via-[#020617] to-[#111827] text-white relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-24 right-10 w-80 h-80 bg-[#B11226]/25 blur-3xl" />
           <div className="absolute -bottom-24 left-0 w-72 h-72 bg-[#0EA5E9]/25 blur-3xl" />
         </div>
-
         <PageContainer className="max-w-4xl text-center">
-
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-6"
+            className="text-3xl md:text-5xl font-semibold tracking-tight mb-6"
           >
             ¿Listo para tener una web que{' '}
             <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
               realmente genere clientes?
             </span>
           </motion.h2>
-
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -586,7 +588,6 @@ const PricingPage = () => {
           >
             Transformá tus visitantes en clientes con un diseño enfocado en la conversión.
           </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -594,31 +595,23 @@ const PricingPage = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            {/* Primary CTA */}
-            <motion.div className="w-full sm:w-auto">
-              <Link
-                to="/contacto"
-                className="w-full inline-flex justify-center items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300"
-              >
-                <Calendar className="w-5 h-5 mr-3" />
-                Solicitar mi página web profesional
-              </Link>
-            </motion.div>
-
-            {/* WhatsApp CTA */}
-            <motion.div className="w-full sm:w-auto">
-              <a
-                href="https://wa.me/5493813475776"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
-              >
-                <MessageCircle className="w-5 h-5 mr-3" />
-                Contactar por WhatsApp
-              </a>
-            </motion.div>
+            <Link
+              to="/contacto"
+              className="w-full sm:w-auto inline-flex justify-center items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(185,28,28,0.35)] hover:scale-105 transition-all duration-300"
+            >
+              <Calendar className="w-5 h-5 mr-3" />
+              Solicitar mi página web profesional
+            </Link>
+            <a
+              href="https://wa.me/5493813475776"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-[0_10px_40px_rgba(5,150,105,0.3)] hover:scale-105 transition-all duration-300"
+            >
+              <MessageCircle className="w-5 h-5 mr-3" />
+              Contactar por WhatsApp
+            </a>
           </motion.div>
-
         </PageContainer>
       </section>
 
