@@ -342,7 +342,7 @@ const handleSubmit = async (e) => {
                                     {/* Email */}
                                     <div className="flex items-center gap-3 text-[#6B7280]">
                                         <Mail className="w-5 h-5 text-[#B11226]" />
-                                        <span>contacto@vmdigitalstudio.com</span>
+                                        <span>contacto@vm-digital-studio.com</span>
                                     </div>
 
                                     {/* WhatsApp Button */}
