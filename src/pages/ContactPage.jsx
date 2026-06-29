@@ -70,7 +70,7 @@ const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
         try {
-            const response = await fetch('http://100.65.131.87:5678/webhook/lead', {
+            const response = await fetch('https://n8n.vm-digital-studio.com/webhook/vm-contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
